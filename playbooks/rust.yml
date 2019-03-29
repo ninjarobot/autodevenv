@@ -1,0 +1,16 @@
+---
+- hosts: all
+  tasks:
+  - name: Install clang
+    apt:
+      name: clang
+      state: present
+    become: true
+  - name: Download rustup-init.sh
+    get_url:
+      url:  https://sh.rustup.rs
+      dest: $HOME/rustup-init.sh
+  - name: Run rustup-init
+    shell: sh $HOME/rustup-init.sh -y
+    args:
+      creates: $HOME/.cargo/bin/rustup
