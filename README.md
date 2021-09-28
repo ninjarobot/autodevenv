@@ -13,3 +13,7 @@ pip install ansible
 ```bash
 ansible-playbook dev_machine.yml -i hosts --ask-pass -K
 ```
+Or if you want to install the .NET 6 RC1:
+```bash
+ansible-playbook dev_machine.yml -i hosts --ask-pass -K -e dotnet=preview
+```
