@@ -6,7 +6,14 @@
       path: /tmp/dotnet_preview_6.rc1
       state: directory
       mode: '0755'
-  - name: Download dotnet 6rc1 SDK
+  - name: Download dotnet 6rc1 SDK (x86_64)
+    when: ansible_architecture == 'x86_64'
+    get_url:
+      url: https://dotnetcli.azureedge.net/dotnet/Sdk/6.0.100-rc.1.21458.32/dotnet-sdk-6.0.100-rc.1.21458.32-linux-x64.tar.gz
+      dest: /tmp/dotnet_preview_6.rc1/dotnet.tar.gz
+      checksum: sha512:7a20c5ac3f8ae7a5a67b0ddc184e7eb845b57aacea65e42e451c51dd48afb8c854f25a879777f0067617bba131ad0c09fb395c62b3ec292915f9434213523463
+  - name: Download dotnet 6rc1 SDK (ARM64)
+    when: ansible_architecture == 'aarch64'
     get_url:
       url: https://dotnetcli.azureedge.net/dotnet/Sdk/6.0.100-rc.1.21458.32/dotnet-sdk-6.0.100-rc.1.21458.32-linux-arm64.tar.gz
       dest: /tmp/dotnet_preview_6.rc1/dotnet.tar.gz
