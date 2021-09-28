@@ -18,7 +18,7 @@
     become: true
   - name: Add vscode repo
     apt_repository: 
-      repo: deb https://packages.microsoft.com/repos/vscode stable main
+      repo: deb https://packages.microsoft.com/repos/code stable main
       state: present
       update_cache: true
     become: true
@@ -31,10 +31,6 @@
     shell: code --install-extension ionide.ionide-fsharp
     args:
       creates: $HOME/.vscode/extensions/ionide.ionide-fsharp-*
-  - name: Install C# to VS Code
-    shell: code --install-extension ms-vscode.csharp
-    args:
-      creates: $HOME/.vscode/extensions/ms-vscode.csharp-*
   - name: Install Rust to VS Code
     shell: code --install-extension rust-lang.rust
     args:
