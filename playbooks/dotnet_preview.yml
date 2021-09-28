@@ -1,0 +1,26 @@
+---
+- hosts: all
+  tasks:
+  - name: Make dotnet preview directory
+    file:
+      path: /tmp/dotnet_preview_6.rc1
+      state: directory
+      mode: '0755'
+  - name: Download dotnet 6rc1 SDK
+    get_url:
+      url: https://dotnetcli.azureedge.net/dotnet/Sdk/6.0.100-rc.1.21458.32/dotnet-sdk-6.0.100-rc.1.21458.32-linux-arm64.tar.gz
+      dest: /tmp/dotnet_preview_6.rc1/dotnet.tar.gz
+      checksum: sha512:b27bf9be0198f7fda3eee514c86758665b144e6fc7d2f3e43223e65f80dfc85a43bbc9f61a5e8dbda2e10ec193fafd2c208e64e2e98358f0c80ef6e349bd7c33
+  - name: Extract 6rc1 SDK
+    shell: mkdir -p /usr/share/dotnet_preview && tar -C /usr/share/dotnet_preview -oxzf dotnet.tar.gz
+    become: true
+    args:
+      chdir: /tmp/dotnet_preview_6.rc1
+      creates: /usr/share/dotnet_preview/dotnet
+  - name: Symlink dotnet executable
+    file:
+      src: /usr/share/dotnet_preview/dotnet
+      dest: /usr/bin/dotnet
+      state: link
+    become: true
+
