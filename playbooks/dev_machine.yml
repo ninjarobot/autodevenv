@@ -4,4 +4,5 @@
   when: dotnet is undefined or dotnet != 'preview'
 - import_playbook: dotnet_preview.yml
   when: dotnet == 'preview'
+- import_playbook: desktop.yml
 - import_playbook: vscode.yml

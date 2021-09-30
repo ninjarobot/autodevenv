@@ -1,0 +1,23 @@
+---
+- hosts: all
+  tasks:
+  - name: Check if ubuntu-desktop is installed
+    package_facts:
+      manager: auto
+  - name: Install tasksel
+    apt:
+      name: tasksel
+      state: present
+      update_cache: yes
+    become: true
+    when: not "ubuntu-desktop" in ansible_facts.packages
+  - name: Install ubuntu desktop
+    shell: tasksel install ubuntu-desktop
+    become: true
+    when: not "ubuntu-desktop" in ansible_facts.packages
+    register: installdesktop
+  - name: Reboot after installing desktop
+    reboot:
+    become: true
+    when: installdesktop.changed
+
