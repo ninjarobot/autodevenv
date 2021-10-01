@@ -30,4 +30,9 @@
       dest: /usr/bin/dotnet
       state: link
     become: true
+  - name: Set DOTNET_ROOT
+    lineinfile:
+      path: /etc/environment
+      line: DOTNET_ROOT=/usr/share/dotnet_preview
+    become: true
 
