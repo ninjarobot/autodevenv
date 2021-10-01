@@ -1,26 +1,17 @@
 ---
 - hosts: all
   tasks:
-  - name: Download MS product repository
-    get_url:
-      url: https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
-      dest: /tmp/packages-microsoft-prod.deb
-  - name: Install MS product repository
-    apt:
-      deb: /tmp/packages-microsoft-prod.deb
-      update_cache: yes
+  - name: Add vscode repo
+    apt_repository: 
+      repo: deb https://packages.microsoft.com/repos/code stable main
+      state: present
+      update_cache: true
     become: true
   - name: Make sure HTTPS is supported by apt
     apt:
       name: apt-transport-https
       state: present
       update_cache: no
-    become: true
-  - name: Add vscode repo
-    apt_repository: 
-      repo: deb https://packages.microsoft.com/repos/code stable main
-      state: present
-      update_cache: true
     become: true
   - name: Install VS Code
     apt:
