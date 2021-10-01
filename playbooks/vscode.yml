@@ -31,6 +31,9 @@
     shell: code --install-extension ionide.ionide-fsharp
     args:
       creates: $HOME/.vscode/extensions/ionide.ionide-fsharp-*
+  - name: Disable dependency on C# extension (ARM64 only)
+    when: ansible_architecture == 'aarch64'
+    shell: sed -i '/csharp/d' .vscode/extensions/ionide.ionide-fsharp-*/package.json
   - name: Install Rust to VS Code
     shell: code --install-extension rust-lang.rust
     args:
