@@ -3,26 +3,26 @@
   tasks:
   - name: Make dotnet preview directory
     file:
-      path: /tmp/dotnet_preview_6.rc1
+      path: /tmp/dotnet_preview_6.rc2
       state: directory
       mode: '0755'
-  - name: Download dotnet 6rc1 SDK (x86_64)
+  - name: Download dotnet 6rc2 SDK (x86_64)
     when: ansible_architecture == 'x86_64'
     get_url:
-      url: https://dotnetcli.azureedge.net/dotnet/Sdk/6.0.100-rc.1.21458.32/dotnet-sdk-6.0.100-rc.1.21458.32-linux-x64.tar.gz
-      dest: /tmp/dotnet_preview_6.rc1/dotnet.tar.gz
-      checksum: sha512:7a20c5ac3f8ae7a5a67b0ddc184e7eb845b57aacea65e42e451c51dd48afb8c854f25a879777f0067617bba131ad0c09fb395c62b3ec292915f9434213523463
-  - name: Download dotnet 6rc1 SDK (ARM64)
+      url: https://dotnetcli.azureedge.net/dotnet/Sdk/6.0.100-rc.2.21505.57/dotnet-sdk-6.0.100-rc.2.21505.57-linux-x64.tar.gz
+      dest: /tmp/dotnet_preview_6.rc2/dotnet.tar.gz
+      checksum: sha512:0a8f85a2757f61ca7f9b8c546af4554c2aac9cdb06f6d62879a60de6f2a3d37ea7136f48896c9c85828a2d55df354e7b9b5b4dc22896c927f0c6370a5ade1b9c
+  - name: Download dotnet 6rc2 SDK (ARM64)
     when: ansible_architecture == 'aarch64'
     get_url:
-      url: https://dotnetcli.azureedge.net/dotnet/Sdk/6.0.100-rc.1.21458.32/dotnet-sdk-6.0.100-rc.1.21458.32-linux-arm64.tar.gz
-      dest: /tmp/dotnet_preview_6.rc1/dotnet.tar.gz
-      checksum: sha512:b27bf9be0198f7fda3eee514c86758665b144e6fc7d2f3e43223e65f80dfc85a43bbc9f61a5e8dbda2e10ec193fafd2c208e64e2e98358f0c80ef6e349bd7c33
-  - name: Extract 6rc1 SDK
+      url: https://dotnetcli.azureedge.net/dotnet/Sdk/6.0.100-rc.2.21505.57/dotnet-sdk-6.0.100-rc.2.21505.57-linux-arm64.tar.gz
+      dest: /tmp/dotnet_preview_6.rc2/dotnet.tar.gz
+      checksum: sha512:14aa96f47f7f3520075e41753c705bdbf7f84fd7cff7cc2add1095a13e3e3c44eaaf2d822551902f05a6ad0c9acd7f7424190b7c09c397004c632eddc8acd5ac
+  - name: Extract 6rc2 SDK
     shell: mkdir -p /usr/share/dotnet_preview && tar -C /usr/share/dotnet_preview -oxzf dotnet.tar.gz
     become: true
     args:
-      chdir: /tmp/dotnet_preview_6.rc1
+      chdir: /tmp/dotnet_preview_6.rc2
       creates: /usr/share/dotnet_preview/dotnet
   - name: Symlink dotnet executable
     file:
