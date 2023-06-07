@@ -33,6 +33,6 @@
     when: ansible_architecture == 'aarch64'
     shell: sed -i '/csharp/d' $HOME/.vscode/extensions/ionide.ionide-fsharp-*/package.json
   - name: Install Rust to VS Code
-    shell: code --install-extension rust-lang.rust
+    shell: code --install-extension rust-lang.rust-analyzer
     args:
-      creates: $HOME/.vscode/extensions/rust-lang.rust-*
+      creates: $HOME/.vscode/extensions/rust-lang.rust-analyzer-*
