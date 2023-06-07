@@ -19,7 +19,7 @@
     become: true
   - name: Install .NET Core SDK
     apt:
-      name: dotnet-sdk-6.0
+      name: dotnet-sdk-7.0
       state: present
       update_cache: yes
     become: true
